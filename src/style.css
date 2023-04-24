@@ -1,0 +1,159 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-size: 14px;
+}
+
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+ul[class],
+ol[class] {
+  padding: 0;
+}
+
+body,
+h1,
+h2,
+h3,
+p,
+ul[class],
+li {
+  margin: 0;
+}
+
+body {
+  min-height: 100vh;
+  scroll-behavior: smooth;
+  text-rendering: optimizeSpeed;
+  line-height: 1.5;
+}
+
+ul[class],
+ol[class] {
+  list-style: none;
+}
+
+li {
+  list-style: none;
+}
+
+ul {
+  padding: 0;
+  margin: 0;
+}
+
+input,
+textarea{
+  outline: none;
+  font: inherit;
+}
+
+body {
+  background: #171717;
+}
+.container {
+  max-width: 900px;
+  width: 100%;
+  margin: 10px auto;
+  display: flex;
+  flex-direction: column;
+  row-gap: 35px;
+  font-family: 'Mulish', sans-serif;
+}
+.title {
+  margin-top: 15px;
+  font-family: 'Mulish', sans-serif;
+  font-weight: 700;
+  font-size: 36px;
+  color: #ebebeb;
+  text-align: center;
+}
+#keyboardInput {
+  padding: 10px 15px;
+  border: 1px solid #888;
+  border-radius: 10px;
+  font-size: 20px;
+  font-family: 'Mulish', sans-serif;
+  background: #535353;
+  color: #fff;
+}
+.keyboard {
+  max-width: 900px;
+  width: 100%;
+  max-height: 500px;
+  height: 100%;
+  margin-top: 100px;
+  padding: 10px 20px;
+  background: #888;
+  border: 2px solid #202020;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.key {
+  border: #000;
+  border-radius: 5px;
+  color: #e3e3e3;
+  font-size: 20px;
+  text-align: center;
+  transition: all .2s linear;
+}
+
+.symbol {
+  width: 52px;
+  height: 54px;
+  margin: 6px 0 0 6px;
+  padding: 10px;
+  
+  background: #272727;
+}
+
+.modifier {
+  margin: 6px 0 5px 6px;
+  padding: 12px 14px;
+
+  background: #171717;
+}
+.space {
+  width: 374px;
+  height: 55px;
+  margin: 6px 5px 6px;
+
+  background: #272727;
+}
+.bigModifier {
+  width: 118px;
+  height: 55px;
+  margin: 6px 0 5px 6px;
+  padding: 10px 0;
+  
+  background: #171717;
+}
+.arrow {
+  width: 54px;
+  height: 55px;
+  margin: 6px 0 0 6px;
+  padding: 10px;
+  
+  background: #171717;
+}
+.key:hover {
+  cursor: pointer;
+  background: #585858;
+}
+.key:active{
+  background: #d2d2d2;
+  border-radius: 25px;
+  color: #171717;
+}
+.key.active {
+  background: #d2d2d2;
+  border-radius: 25px;
+  color: #171717;
+}
