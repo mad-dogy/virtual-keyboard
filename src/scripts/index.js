@@ -1,4 +1,6 @@
-import lowerCaseEN from './keyboardLayouts.js';
+"use strict";
+import EN from './keyboardLayouts.js';
+
 
 //Create base layout
 let container = document.createElement('div');
@@ -21,45 +23,71 @@ let keyboard = document.createElement('ul');
 keyboard.className = 'keyboard';
 container.append(keyboard);
 
-for(let key in lowerCaseEN){
-    let keyboardItem = document.createElement('li');
-    keyboardItem.innerHTML = lowerCaseEN[key]["key"];
-    if(lowerCaseEN[key]["key"] === '◀' 
-          || lowerCaseEN[key]["key"] === '▼' 
-          || lowerCaseEN[key]["key"] === '▶' 
-          || lowerCaseEN[key]["key"] === '▲'){
-        keyboardItem.className = 'key arrow';
+let shiftMode = 0;
+let capsMode = 0;
+
+function fillKeyboard() {
+    let whichKey = "key";
+    
+    console.log(whichKey);
+    if(shiftMode === 1) {
+        whichKey = "bigKey";
     }
-    else if(key.length === 1) {
-        keyboardItem.className = 'key symbol';
+    console.log(whichKey);
+    for(let key in EN){
+        let keyboardItem = document.createElement('li');
+        keyboardItem.innerHTML = EN[key][whichKey];
+        if(EN[key]["key"] === '◀' 
+              || EN[key]["key"] === '▼' 
+              || EN[key]["key"] === '▶' 
+              || EN[key]["key"] === '▲'){
+            keyboardItem.className = 'key arrow';
+        }
+        else if(key.length === 1) {
+            keyboardItem.className = 'key symbol';
+        }
+        else if(key === 'Space') {
+            keyboardItem.className = 'key space';
+        }
+        else if(EN[key]["key"] === 'Shift' || EN[key]["key"] === 'Enter') {
+            keyboardItem.className = 'key bigModifier';
+        }
+        else {
+            keyboardItem.className = 'key modifier';
+        }
+        keyboardItem.id = key;
+        keyboard.append(keyboardItem); 
     }
-    else if(key === 'Space') {
-        keyboardItem.className = 'key space';
-    }
-    else if(lowerCaseEN[key]["key"] === 'Shift' || lowerCaseEN[key]["key"] === 'Enter') {
-        keyboardItem.className = 'key bigModifier';
-    }
-    else {
-        keyboardItem.className = 'key modifier';
-    }
-    keyboardItem.id = key;
-    keyboard.append(keyboardItem); 
+
+    return document.querySelectorAll('.key');
 }
 
-let keys = document.querySelectorAll('.key');
+let keys = fillKeyboard();
+console.log(keys);
 
-document.addEventListener('keydown', function(event){
+document.addEventListener('keydown', function(event) {
     keys.forEach(item => {
-        if(event.code === lowerCaseEN[item.id]["code"]) {
+        /* if(event.key === "Shift") {
+            shiftMode = 1;
+            keyboard.remove();
+            fillKeyboard();
+        } */
+        if(event.code === EN[item.id]["code"]) {
             item.classList.add('active');
+            textarea.textContent += item.textContent;
         }
     })
 })
-document.addEventListener('keyup', function(event){
+document.addEventListener('keyup', function(event) {
     keys.forEach(item => {
-        if(event.code === lowerCaseEN[item.id]["code"]) {
+        if(event.code === EN[item.id]["code"]) {
             item.classList.remove('active');
         }
     })
 })
-   
+
+for(let key of keys){
+    key.onclick = function(){
+        textarea.textContent += key.textContent;
+    }
+} 
