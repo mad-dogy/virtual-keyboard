@@ -1,6 +1,8 @@
 "use strict";
 import EN from './keyboardLayouts.js';
+import RU from './keyboardLayouts.js';
 
+let language = EN;
 
 //Create base layout
 let container = document.createElement('div');
@@ -23,20 +25,26 @@ let keyboard = document.createElement('ul');
 keyboard.className = 'keyboard';
 container.append(keyboard);
 
-let shiftMode = 0;
-let capsMode = 0;
+let shiftMode = false;
+let capsMode = false;
 
 function fillKeyboard() {
+    keyboard.innerHTML = "";
     let whichKey = "key";
     
-    console.log(whichKey);
-    if(shiftMode === 1) {
+    if(shiftMode === true) {
         whichKey = "bigKey";
     }
-    console.log(whichKey);
-    for(let key in EN){
+
+    for(let key in EN) {
         let keyboardItem = document.createElement('li');
-        keyboardItem.innerHTML = EN[key][whichKey];
+        if(EN[key]["bigKey"] === false) {
+            keyboardItem.innerHTML = EN[key]["key"];
+        }
+        else {
+            keyboardItem.innerHTML = EN[key][whichKey];
+        }
+
         if(EN[key]["key"] === '◀' 
               || EN[key]["key"] === '▼' 
               || EN[key]["key"] === '▶' 
@@ -55,24 +63,37 @@ function fillKeyboard() {
         else {
             keyboardItem.className = 'key modifier';
         }
+
         keyboardItem.id = key;
         keyboard.append(keyboardItem); 
     }
 
-    return document.querySelectorAll('.key');
+    return document.querySelectorAll('.key')
 }
 
 let keys = fillKeyboard();
-console.log(keys);
 
 document.addEventListener('keydown', function(event) {
     keys.forEach(item => {
-        /* if(event.key === "Shift") {
-            shiftMode = 1;
-            keyboard.remove();
-            fillKeyboard();
-        } */
-        if(event.code === EN[item.id]["code"]) {
+        if(event.key === "Shift" && event.code === EN[item.id]["code"]) {
+            console.log(111)
+            console.log(item);
+            item.classList.add('active');
+
+            shiftMode = true;
+            keys = fillKeyboard();
+        }
+        else if(event.code === EN[item.id]["code"] && (event.key === "CapsLock" ||
+           event.key === "Control" ||
+           event.key === "Tab" ||
+           event.key === "Alt" ||
+           event.key === "Meta" ||
+           event.key === "Delete")) {
+            console.log(item);
+            item.classList.add('active');
+            return ;
+        }
+        else if(event.code === EN[item.id]["code"]) {
             item.classList.add('active');
             textarea.textContent += item.textContent;
         }
@@ -80,14 +101,30 @@ document.addEventListener('keydown', function(event) {
 })
 document.addEventListener('keyup', function(event) {
     keys.forEach(item => {
+        if(event.key === "Shift" && event.code === EN[item.id]["code"]) {
+            shiftMode = false;
+            keys = fillKeyboard();
+            item.classList.remove('active');
+        }
         if(event.code === EN[item.id]["code"]) {
             item.classList.remove('active');
         }
     })
 })
 
-for(let key of keys){
-    key.onclick = function(){
-        textarea.textContent += key.textContent;
+keyboard.addEventListener('click', function() {
+    keys = fillKeyboard();
+    for(let key of keys){
+        
+        key.onclick = function(){
+            console.log(key);
+            if(key.innerHTML === "Shift") {
+                shiftMode = !shiftMode;
+                keys = fillKeyboard();
+                return ;
+            }
+            textarea.textContent += key.textContent;
+        }
     }
-} 
+})
+ 

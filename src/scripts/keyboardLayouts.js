@@ -1,5 +1,5 @@
 const EN = {
-    '`': {"key": "0", "keyCode": 48, "code": "Digit0", "bigKey": "~"},
+    '`': {"key": "0", "keyCode": 48, "code": "Digit0", "bigKey": ")"},
     '1': {"key": "1", "keyCode": 49, "code": "Digit1", "bigKey": "!"},
     '2': {"key": "2", "keyCode": 50, "code": "Digit2", "bigKey": "@"},
     '3': {"key": "3", "keyCode": 51, "code": "Digit3", "bigKey": "#"},
@@ -9,7 +9,7 @@ const EN = {
     '7': {"key": "7", "keyCode": 55, "code": "Digit7", "bigKey": "&"},
     '8': {"key": "8", "keyCode": 56, "code": "Digit8", "bigKey": "*"},         
     '9': {"key": "9", "keyCode": 57, "code": "Digit9", "bigKey": "("},
-    '0': {"key": "`", "keyCode": 192, "code": "Backquote", "bigKey": ")"},
+    '0': {"key": "`", "keyCode": 192, "code": "Backquote", "bigKey": "~"},
     '-': {"key": "-", "keyCode": 189, "code": "Minus", "bigKey": "_"},
     '=': {"key": "=", "keyCode": 187, "code": "Equal", "bigKey": "+"},
     'Backspace': {"key": "Backspace", "keyCode": 8, "code": "Backspace", "bigKey": false},
@@ -69,7 +69,7 @@ const EN = {
     'ControlRight': {"key": "Ctrl", "keyCode": 17, "code": "ControlRight", "bigKey": false},
 }
 
-const RU = {
+export const RU = {
     'ё': {"key": "0", "keyCode": 48, "code": "Digit0", "bigKey": "Ё"},
     '1': {"key": "1", "keyCode": 49, "code": "Digit1", "bigKey": "!"},
     '2': {"key": "2", "keyCode": 50, "code": "Digit2", "bigKey": "\""},
