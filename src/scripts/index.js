@@ -1,11 +1,9 @@
-"use strict";
 import EN from './ENlayout.js';
 import RU from './RUlayout.js';
 
-let language = 'EN';
+let language = "EN";
 let langObj = EN;
 
-//Create base layout
 let container = document.createElement('div');
 container.className = 'container';
 document.body.append(container);
