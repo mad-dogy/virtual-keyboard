@@ -1,7 +1,7 @@
-import EN from './ENlayout.js';
-import RU from './RUlayout.js';
+import { EN } from './ENlayout.js';
+import { RU } from './RUlayout.js';
 
-let language = "EN";
+let language = 'EN';
 let langObj = EN;
 
 let container = document.createElement('div');
@@ -28,20 +28,20 @@ let shiftMode = false;
 let capsMode = false;
 
 function fillKeyboard() {
-    keyboard.innerHTML = "";
+    keyboard.innerHTML = '';
 
     for(let key in EN) {
         let keyboardItem = document.createElement('li');
-        keyboardItem.innerHTML = EN[key]["key"];
+        keyboardItem.innerHTML = EN[key]['key'];
 
-        if(EN[key]["key"] === 'language') {
+        if(EN[key]['key'] === 'language') {
             keyboardItem.className = 'key';
             keyboardItem.innerHTML = language;
         }
-        if(EN[key]["key"] === '◀' 
-              || EN[key]["key"] === '▼' 
-              || EN[key]["key"] === '▶' 
-              || EN[key]["key"] === '▲'){
+        if(EN[key]['key'] === '◀' 
+              || EN[key]['key'] === '▼' 
+              || EN[key]['key'] === '▶' 
+              || EN[key]['key'] === '▲'){
             keyboardItem.className = 'key arrow';
         }
         else if(key.length === 1) {
@@ -50,14 +50,14 @@ function fillKeyboard() {
         else if(key === 'Space') {
             keyboardItem.className = 'key space';
         }
-        else if(EN[key]["key"] === 'Shift' || EN[key]["key"] === 'Enter') {
+        else if(EN[key]['key'] === 'Shift' || EN[key]['key'] === 'Enter') {
             keyboardItem.className = 'key bigModifier';
         }
         else {
             keyboardItem.className = 'key modifier';
         }
 
-        if(EN[key]["keyCode"] > 64 && EN[key]["keyCode"] < 91) {
+        if(EN[key]['keyCode'] > 64 && EN[key]['keyCode'] < 91) {
             keyboardItem.className = 'key symbol letter';
         }
 
@@ -69,18 +69,18 @@ function fillKeyboard() {
 }
 
 function changeShiftKeyboard() {
-    let whichKey = "key";
+    let whichKey = 'key';
     keys = document.querySelectorAll('.key');
     console.log(langObj)
     if(shiftMode === true) {
-        whichKey = "bigKey";
+        whichKey = 'bigKey';
     }
     for(let i = 0; i < keys.length; ++i) {
-        if(langObj[keys[i].id]["key"] === "language") {
+        if(langObj[keys[i].id]['key'] === 'language') {
             continue;
         }
-        if(langObj[keys[i].id]["bigKey"] === false) {
-            keys[i].innerHTML = langObj[keys[i].id]["key"];
+        if(langObj[keys[i].id]['bigKey'] === false) {
+            keys[i].innerHTML = langObj[keys[i].id]['key'];
         }
         else {
             keys[i].innerHTML = langObj[keys[i].id][whichKey];
@@ -89,14 +89,9 @@ function changeShiftKeyboard() {
 }
 
 function changeCapsKeyboard() {
-    let whichKey = "key";
     keys = document.querySelectorAll('.key');
-    console.log(langObj)
-    if(capsMode === true) {
-        whichKey = "bigKey";
-    }
     for(let i = 0; i < keys.length; ++i) {
-        if(langObj[keys[i].id]["key"] === "language") {
+        if(langObj[keys[i].id]['key'] === 'language') {
             continue;
         }
         if(keys[i].classList.contains('letter') || keys[i].classList.contains('symbol')) {
@@ -112,8 +107,8 @@ function changeCapsKeyboard() {
 function changeLanguage() {
     keys = document.querySelectorAll('.key');
     let i = 0;
-    if(language === "EN") {
-        language = "RU";
+    if(language === 'EN') {
+        language = 'RU';
         langObj = RU;
         
         for(let key in RU) {
@@ -122,13 +117,13 @@ function changeLanguage() {
                 ++i;
                 continue;
             }
-            keys[i].innerHTML = RU[key]["key"];
+            keys[i].innerHTML = RU[key]['key'];
             keys[i].id = key;
             ++i;
         }
     }
     else {
-        language = "EN";
+        language = 'EN';
         langObj = EN;
 
         for(let key in EN) {
@@ -137,7 +132,7 @@ function changeLanguage() {
                 ++i;
                 continue;
             }
-            keys[i].innerHTML = EN[key]["key"];
+            keys[i].innerHTML = EN[key]['key'];
             keys[i].id = key;
             ++i;
         }
@@ -146,7 +141,7 @@ function changeLanguage() {
 
 let keys = fillKeyboard();
 
-let flag = false
+let flag = false;
 
 document.onkeydown = function(event) {
     if(event.code === 'ControlLeft') {
@@ -161,14 +156,14 @@ document.onkeydown = function(event) {
 document.addEventListener('keydown', function(event) {
     keys.forEach(item => {
 
-        if(event.key === "Shift" && event.code === langObj[item.id]["code"]) {
+        if(event.key === 'Shift' && event.code === langObj[item.id]['code']) {
             item.classList.add('active');
             shiftMode = true;
             changeShiftKeyboard();
             return ;
         }
 
-        if(event.key === "CapsLock" && event.code === langObj[item.id]["code"]) {
+        if(event.key === 'CapsLock' && event.code === langObj[item.id]['code']) {
             if(capsMode === true){
                 item.classList.remove('active');
             }
@@ -181,7 +176,7 @@ document.addEventListener('keydown', function(event) {
             return ;
         }
 
-        if(event.key === "Backspace" && event.code === langObj[item.id]["code"]) {
+        if(event.key === 'Backspace' && event.code === langObj[item.id]['code']) {
             let textareaLength = textarea.textContent.length;
             let leftPart = '';
             if(textarea.selectionStart !== 0) {
@@ -195,22 +190,22 @@ document.addEventListener('keydown', function(event) {
             return;
         }
 
-        if(event.key === "Enter" && event.code === langObj[item.id]["code"]) {
+        if(event.key === 'Enter' && event.code === langObj[item.id]['code']) {
             textarea.textContent += '\n';
             item.classList.add('active');
             return ;
         }
         
-        if(event.code === langObj[item.id]["code"] && (event.key === "Tab" ||
-           event.key === "Meta" ||
-           event.key === "Control" ||
-           event.key === "Alt" ||
-           event.key === "Delete")) {
+        if(event.code === langObj[item.id]['code'] && (event.key === 'Tab' ||
+           event.key === 'Meta' ||
+           event.key === 'Control' ||
+           event.key === 'Alt' ||
+           event.key === 'Delete')) {
             item.classList.add('active');
             return ;
         }
 
-        if(event.code === langObj[item.id]["code"]) {
+        if(event.code === langObj[item.id]['code']) {
             item.classList.add('active');
             textarea.textContent += item.textContent;
             return ;
@@ -220,14 +215,14 @@ document.addEventListener('keydown', function(event) {
 document.addEventListener('keyup', function(event) {
     keys.forEach(item => {
         
-        if(event.key === "Shift" && event.code === langObj[item.id]["code"]) {
+        if(event.key === 'Shift' && event.code === langObj[item.id]['code']) {
             shiftMode = false;
             changeShiftKeyboard();
             item.classList.remove('active');
             return ;
         }
 
-        if(event.key === "CapsLock" && event.code === langObj[item.id]["code"]) {
+        if(event.key === 'CapsLock' && event.code === langObj[item.id]['code']) {
             return ;
         }
 
@@ -240,7 +235,7 @@ document.addEventListener('keyup', function(event) {
         }
         
 
-        if(event.code === langObj[item.id]["code"]) {
+        if(event.code === langObj[item.id]['code']) {
             item.classList.remove('active');
             return ;
         }
@@ -251,15 +246,15 @@ keyboard.addEventListener('click', function() {
     for(let key of keys){
         
         key.onclick = function(){
-            if(key.innerHTML === "Shift") {
+            if(key.innerHTML === 'Shift') {
                 shiftMode = !shiftMode;
                 changeShiftKeyboard();
                 return ;
             }
-            if(key.innerHTML === "Ctrl" ||
-               key.innerHTML === "Alt" ||
-               key.innerHTML === "Win" ||
-               key.innerHTML === "Tab") {
+            if(key.innerHTML === 'Ctrl' ||
+               key.innerHTML === 'Alt' ||
+               key.innerHTML === 'Win' ||
+               key.innerHTML === 'Tab') {
                 return ;
             }
             if(key.innerHTML === 'EN' || key.innerHTML === 'RU') {
@@ -267,19 +262,18 @@ keyboard.addEventListener('click', function() {
                 return ;
             }
             
-            if(key.innerHTML === "Caps Lock") {
+            if(key.innerHTML === 'Caps Lock') {
                 capsMode = !capsMode;
                 key.classList.toggle('active');
                 changeCapsKeyboard();
                 return ;
             }
-            if(key.innerHTML === "Backspace") {
+            if(key.innerHTML === 'Backspace') {
                 let textareaLength = textarea.textContent.length;
-                console.log(textareaLength)
                 textarea.textContent = textarea.textContent.slice(0, textareaLength - 1);
-                return;
+                return ;
             }
-            if(key.innerHTML === "Enter") {
+            if(key.innerHTML === 'Enter') {
                 textarea.textContent += '\n';
                 return ;
             }
