@@ -266,6 +266,7 @@ keyboard.addEventListener('click', function() {
             }
             if(key.innerHTML === 'EN' || key.innerHTML === 'RU') {
                 changeLanguage();
+                return ;
             }
             
             if(key.innerHTML === "Caps Lock") {
