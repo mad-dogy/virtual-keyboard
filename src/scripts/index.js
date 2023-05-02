@@ -2,7 +2,15 @@ import EN from './ENlayout.js';
 import RU from './RUlayout.js';
 
 let language = 'EN';
+if(window.localStorage.getItem('language')) {
+  language = window.localStorage.getItem('language');
+} else {
+  language = 'EN';
+}
 let langObj = EN;
+if(language === 'RU') {
+  langObj = RU;
+}
 
 const container = document.createElement('div');
 container.className = 'container';
@@ -30,30 +38,30 @@ let capsMode = false;
 function fillKeyboard () {
   keyboard.innerHTML = '';
 
-  for (const item in EN) {
+  for (const item in langObj) {
     const keyboardItem = document.createElement('li');
-    keyboardItem.innerHTML = EN[item].key;
+    keyboardItem.innerHTML = langObj[item].key;
 
-    if (EN[item].key === 'language') {
+    if (langObj[item].key === 'language') {
       keyboardItem.className = 'key';
       keyboardItem.innerHTML = language;
     }
-    if (EN[item].key === '◀' ||
-        EN[item].key === '▼' ||
-        EN[item].key === '▶' ||
-        EN[item].key === '▲') {
+    if (langObj[item].key === '◀' ||
+        langObj[item].key === '▼' ||
+        langObj[item].key === '▶' ||
+        langObj[item].key === '▲') {
       keyboardItem.className = 'key arrow';
     } else if (item.length === 1) {
       keyboardItem.className = 'key symbol';
     } else if (item === 'Space') {
       keyboardItem.className = 'key space';
-    } else if (EN[item].key === 'Shift' || EN[item].key === 'Enter') {
+    } else if (langObj[item].key === 'Shift' || langObj[item].key === 'Enter') {
       keyboardItem.className = 'key bigModifier';
     } else {
       keyboardItem.className = 'key modifier';
     }
 
-    if (EN[item].keyCode > 64 && EN[item].keyCode < 91) {
+    if (langObj[item].keyCode > 64 && langObj[item].keyCode < 91) {
       keyboardItem.className = 'key symbol letter';
     }
 
@@ -126,6 +134,9 @@ function changeLanguage () {
       ++i;
     }
   }
+  window.localStorage.setItem('language', language);
+  window.localStorage.setItem('langObj', langObj);
+  console.log(langObj);
 }
 
 let keys = fillKeyboard();
